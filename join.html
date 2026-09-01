@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a competition on Outdo</title>
+<meta name="description" content="You've been invited to a fitness competition on Outdo. Get the app and enter your invite code.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <svg viewBox="0 0 1024 1024" aria-hidden="true">
+    <defs>
+      <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="153" y1="871" x2="871" y2="153">
+        <stop offset="0" stop-color="#523DA8"/>
+        <stop offset="0.55" stop-color="#7C5CFF"/>
+        <stop offset="1" stop-color="#C4B6FF"/>
+      </linearGradient>
+      <mask id="cut">
+        <rect width="1024" height="1024" fill="white"/>
+        <path d="M 512 212 A 300 300 0 0 1 771.8 362" stroke="black" stroke-width="176"
+              stroke-linecap="round" fill="none"/>
+      </mask>
+    </defs>
+    <circle cx="512" cy="512" r="300" stroke="url(#g)" stroke-width="118" fill="none" mask="url(#cut)"/>
+    <path d="M 512 212 A 300 300 0 0 1 771.8 362" stroke="#C4B6FF" stroke-width="118"
+          stroke-linecap="round" fill="none"/>
+  </svg>
+  <div>
+    <div class="name">Outdo</div>
+    <div class="tag">Beat friends. Outdo yourself.</div>
+  </div>
+</header>
+
+<h1 id="headline">You've been invited</h1>
+
+<p class="lede">Outdo turns your Apple Watch Activity rings into a competition with your friends —
+no scoring caps, and nowhere to hide a soft goal.</p>
+
+<div class="invite" id="invite" hidden>
+  <span class="invite-label">Your invite code</span>
+  <span class="invite-code" id="code"></span>
+</div>
+
+<div class="actions">
+  <a class="btn btn-primary" id="store" href="#">Get Outdo on the App&nbsp;Store</a>
+  <a class="btn btn-secondary" id="open" href="#" hidden>Already have Outdo? Open the invite</a>
+</div>
+
+<p class="note" id="platform-note" hidden>Outdo is an iPhone app. Open this link on your iPhone to join.</p>
+
+<h2>Joining by hand</h2>
+<p>If the button above doesn't take you straight in, the code works anywhere: open Outdo, go to the
+<strong>Arena</strong> tab, tap <strong>Join</strong>, and enter it.</p>
+
+<h2>What you'll need</h2>
+<ul>
+  <li>An <strong>iPhone</strong> running iOS 18 or later.</li>
+  <li>An <strong>Apple Watch</strong> for full scoring — Outdo reads your Move, Exercise and Stand
+  rings. Without one you can still follow a competition and see everyone's numbers, but you won't
+  appear on the leaderboard.</li>
+  <li>A few seconds to sign in with Apple and pick a username.</li>
+</ul>
+
+<div class="cards">
+  <a class="card" href="index.html">
+    <strong>What is Outdo?</strong>
+    <span>How the scoring works, why there are no caps, and what your competitors can see.</span>
+  </a>
+  <a class="card" href="privacy.html">
+    <strong>Privacy Policy</strong>
+    <span>What's read from Apple Health, what's shared with your group, and how to delete it all.</span>
+  </a>
+</div>
+
+<footer>
+  Outdo is developed by Arihant Gupta. Apple, Apple Watch and HealthKit are trademarks of Apple Inc.
+</footer>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Replace with the App Store URL once the app is live. The 10-digit number is
+// the "Apple ID" field in App Store Connect → your app → App Information.
+// ---------------------------------------------------------------------------
+var APP_STORE_URL = "https://apps.apple.com/app/id0000000000";
+
+(function () {
+  var params = new URLSearchParams(location.search);
+
+  // Invite codes are exactly six characters of A–Z0–9 (CompetitionManager.randomCode).
+  // Anything else is treated as no code at all rather than rendered as junk.
+  var code = (params.get("c") || "").trim().toUpperCase();
+  if (!/^[A-Z0-9]{6}$/.test(code)) code = "";
+
+  // The competition name is user-authored, so it is only ever written with
+  // textContent — never innerHTML.
+  var name = (params.get("n") || "").trim().slice(0, 60);
+
+  document.getElementById("store").href = APP_STORE_URL;
+
+  if (name) {
+    document.getElementById("headline").textContent = "You've been invited to “" + name + "”";
+  }
+
+  if (code) {
+    document.getElementById("code").textContent = code;
+    document.getElementById("invite").hidden = false;
+
+    // Custom scheme: only resolves for people who already have the app, which is
+    // why it is a secondary button the visitor chooses rather than a redirect
+    // fired on load — an unregistered scheme makes Safari throw an error alert
+    // at exactly the new users this page exists to convert.
+    var open = document.getElementById("open");
+    open.href = "outdo://invite/" + encodeURIComponent(code);
+    open.hidden = false;
+  }
+
+  if (!/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+    document.getElementById("platform-note").hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

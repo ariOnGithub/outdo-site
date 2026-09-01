@@ -159,3 +159,72 @@ footer {
 .card:hover { border-color: var(--accent); }
 .card strong { display: block; font-size: 1.05rem; margin-bottom: 0.2rem; }
 .card span { color: var(--muted); font-size: 0.9rem; }
+
+/* ---- Invite landing (join.html) ---------------------------------------- */
+
+.invite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem;
+  margin: 2rem 0;
+}
+
+.invite-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.invite-code {
+  font: 700 2rem/1.1 ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.18em;
+  /* The trailing letter-spacing would otherwise push the code off-centre. */
+  text-indent: 0.18em;
+  color: var(--accent);
+}
+
+.actions {
+  display: grid;
+  gap: 0.75rem;
+  margin: 2rem 0 1rem;
+}
+
+.btn {
+  display: block;
+  border-radius: 12px;
+  padding: 0.95rem 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-cool);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+
+.note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
